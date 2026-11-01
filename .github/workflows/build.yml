@@ -1,0 +1,21 @@
+name: Build site
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: unzip -q *.zip -d app
+      - run: npm install
+        working-directory: app
+      - run: npm run build
+        working-directory: app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: angad-ads-dist
+          path: app/dist
