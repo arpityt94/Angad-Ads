@@ -11,7 +11,9 @@ jobs:
         with:
           node-version: 22
       - run: unzip -q *.zip -d app
-      - run: npm install
+      - run: npm pkg delete devDependencies.esbuild devDependencies.tsx devDependencies.autoprefixer
+        working-directory: app
+      - run: npm install --legacy-peer-deps
         working-directory: app
       - run: npm run build
         working-directory: app
